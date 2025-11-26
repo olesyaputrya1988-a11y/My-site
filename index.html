@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English with Olesya Putrya - Репетитор английского языка</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Шапка сайта */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        
+        .logo span {
+            color: #1abc9c;
+            text-shadow: 0 0 10px rgba(26, 188, 156, 0.7);
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: #1abc9c;
+            text-shadow: 0 0 8px rgba(26, 188, 156, 0.7);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #1abc9c;
+            transition: width 0.3s;
+            box-shadow: 0 0 8px rgba(26, 188, 156, 0.7);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Главный баннер */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 0;
+            animation: slideUp 1s ease;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin: 20px 0;
+            padding: 40px;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: #2c3e50;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #34495e;
+        }
+        
+        .highlight {
+            color: #1abc9c;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #1abc9c;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.5);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 188, 156, 0.7), 0 0 20px rgba(26, 188, 156, 0.4);
+            background-color: #16a085;
+        }
+        
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #1abc9c;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(26, 188, 156, 0.3);
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Секция преимуществ */
+        .features {
+            padding: 80px 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            margin: 40px 0;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            position: relative;
+            color: #2c3e50;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #1abc9c;
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(26, 188, 156, 0.5);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #1abc9c;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(26, 188, 156, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #1abc9c;
+            text-shadow: 0 0 10px rgba(26, 188, 156, 0.3);
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .feature-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #34495e;
+        }
+        
+        /* Секция обо мне */
+        .about {
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            animation: fadeIn 1.5s ease;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin: 20px 0;
+            padding: 40px;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 80%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(26, 188, 156, 0.2);
+        }
+        
+        .about-content {
+            flex: 1;
+            padding-left: 40px;
+        }
+        
+        .about-content h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .about-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+        
+        .experience-badge {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4), 0 0 10px rgba(26, 188, 156, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        /* Секция методики */
+        .methodology {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin: 20px 0;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .method-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 10px rgba(26, 188, 156, 0.2);
+        }
+        
+        .method-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #1abc9c;
+            text-shadow: 0 0 8px rgba(26, 188, 156, 0.3);
+        }
+        
+        /* Секция контактов */
+        .contact {
+            padding: 80px 0;
+            text-align: center;
+            animation: fadeIn 1.5s ease;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px 30px;
+            min-width: 200px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 10px rgba(26, 188, 156, 0.2);
+        }
+        
+        .contact-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: #1abc9c;
+            text-shadow: 0 0 8px rgba(26, 188, 156, 0.3);
+        }
+        
+        .contact-item h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .contact-item p {
+            color: #34495e;
+        }
+        
+        .email-button {
+            display: inline-block;
+            background-color: #1abc9c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4);
+        }
+        
+        .email-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 188, 156, 0.6), 0 0 15px rgba(26, 188, 156, 0.4);
+            background-color: #16a085;
+        }
+        
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            font-size: 14px;
+            color: white;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4), 0 0 10px rgba(26, 188, 156, 0.3); }
+            50% { box-shadow: 0 4px 15px rgba(26, 188, 156, 0.6), 0 0 15px rgba(26, 188, 156, 0.5); }
+            100% { box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4), 0 0 10px rgba(26, 188, 156, 0.3); }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .about {
+                flex-direction: column;
+            }
+            
+            .about-content {
+                padding-left: 0;
+                margin-top: 40px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-globe-americas"></i></div>
+                English with <span>Olesya Putrya</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#features">Методика</a></li>
+                    <li><a href="#methodology">Преимущества</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Английский язык с удовольствием и результатом!</h1>
+                <p>Индивидуальные занятия для <span class="highlight">школьников 2-11 классов</span>. <span class="highlight">15 лет опыта</span>, авторские методики, использование песен и обучающих видео.</p>
+                <p>Развитие разговорных навыков, помощь с школьной программой, подготовка к контрольным работам.</p>
+                <a href="#contact" class="cta-button">Записаться на пробный урок</a>
+            </div>
+            <div class="hero-image">
+                <!-- Замените на реальное изображение -->
+                <div class="profile-img" style="background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; margin: 0 auto;">
+                    Фото Олеси
+                </div>
+            </div>
+        </section>
+        
+        <section class="about" id="about">
+            <div class="about-image">
+                <!-- Замените на реальное изображение -->
+                <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                    Фото Олеси за работой
+                </div>
+            </div>
+            <div class="about-content">
+                <div class="experience-badge">Опыт работы: 15 лет</div>
+                <h2>Олеся Путря</h2>
+                <p>Профессиональный репетитор английского языка с 15-летним опытом преподавания.</p>
+                <p>Специализируюсь на индивидуальном подходе к каждому ученику, разрабатываю авторские материалы и методики, которые делают изучение языка увлекательным и эффективным.</p>
+                <p>В своей работе активно использую современные ресурсы: обучающие видео, песни, интерактивные задания и игры. Это помогает не только лучше усваивать материал, но и поддерживать интерес к языку на протяжении всего обучения.</p>
+                <p>Мои ученики успешно осваивают школьную программу, улучшают оценки и свободно общаются на английском!</p>
+            </div>
+        </section>
+        
+        <section class="features" id="features">
+            <h2 class="section-title">Моя методика</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-music"></i></div>
+                    <h3>Обучающие песни</h3>
+                    <p>Использую песни для запоминания грамматики, лексики и улучшения произношения. Музыка помогает сделать обучение веселым и эффективным.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-video"></i></div>
+                    <h3>Видеоматериалы</h3>
+                    <p>Подбираю интересные видео для развития навыков аудирования и расширения словарного запаса. От мультфильмов для младших школьников до познавательных роликов для старшеклассников.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-edit"></i></div>
+                    <h3>Авторские материалы</h3>
+                    <p>Разрабатываю индивидуальные программы и упражнения для каждого ученика с учетом его целей, интересов и темпа обучения.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="methodology" id="methodology">
+            <h2 class="section-title">Преимущества обучения</h2>
+            <div class="methodology-grid">
+                <div class="method-card">
+                    <div class="method-icon"><i class="fas fa-child"></i></div>
+                    <h3>Индивидуальный подход</h3>
+                    <p>Программа адаптируется под интересы и способности каждого ребенка</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3>Игровой формат</h3>
+                    <p>Обучение через игры и интерактивные задания для детей</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Быстрый прогресс</h3>
+                    <p>Видимые результаты уже после нескольких занятий</p>
+                </div>
+                <div class="method-card">
+                    <div class="method-icon"><i class="fas fa-smile"></i></div>
+                    <h3>Комфортная атмосфера</h3>
+                    <p>Создаю дружескую обстановку, в которой не страшно делать ошибки</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="contact" id="contact">
+            <h2 class="section-title">Свяжитесь со мной</h2>
+            <p>Готова ответить на все ваши вопросы и обсудить детали сотрудничества</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <h3>Email</h3>
+                    <p>putrenigh@mail.ru</p>
+                    <a href="mailto:putrenigh@mail.ru" class="email-button">Написать</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <h3>Телефон</h3>
+                    <p>+7 (XXX) XXX-XX-XX</p>
+                    <a href="tel:+7XXXXXXXXXX" class="email-button">Позвонить</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <h3>WhatsApp</h3>
+                    <p>Написать в WhatsApp</p>
+                    <a href="https://wa.me/7XXXXXXXXXX" class="email-button">Написать</a>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2023 English with Olesya Putrya. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Плавная прокрутка к якорям
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Анимация появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.feature-card, .about, .contact, .method-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Анимация для кнопок при наведении
+        document.querySelectorAll('.cta-button, .email-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
