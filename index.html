@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -496,6 +496,63 @@
                 font-size: 30px;
             }
         }
+
+        /* Стили для инструкций */
+        .instructions {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 10px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .instructions code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .upload-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .upload-button {
+            background: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4);
+        }
+        
+        .upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 188, 156, 0.6);
+        }
     </style>
 </head>
 <body>
@@ -523,17 +580,42 @@
                 <a href="#contact" class="cta-button">Записаться на пробный урок</a>
             </div>
             <div class="hero-image">
-                <!-- Замените на реальное изображение -->
-                <div class="profile-img" style="background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; margin: 0 auto;">
-                    Фото Олеси
+                <!-- МЕСТО ДЛЯ ВАШЕГО ФОТО -->
+                <div class="profile-img" id="mainPhoto" style="background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; margin: 0 auto;">
+                    Ваше фото здесь
                 </div>
             </div>
+        </section>
+
+        <!-- ИНСТРУКЦИИ ПО ЗАГРУЗКЕ ФОТО -->
+        <section class="instructions">
+            <h3>Как загрузить фото на сайт:</h3>
+            <ol>
+                <li><strong>Способ 1: Замена placeholder'а на реальное фото</strong>
+                    <br>Замените блок с текстом "Ваше фото здесь" на тег <code>&lt;img src="ваше-фото.jpg" class="profile-img"&gt;</code>
+                </li>
+                <li><strong>Способ 2: Использование файлового менеджера</strong>
+                    <br>Создайте папку для вашего сайта, поместите туда HTML-файл и ваши фото. Затем используйте относительные пути, например: <code>&lt;img src="images/my-photo.jpg" class="profile-img"&gt;</code>
+                </li>
+                <li><strong>Способ 3: Загрузка через хостинг изображений</strong>
+                    <br>Загрузите фото на сервис вроде ImgBB, затем используйте полученную прямую ссылку в атрибуте src.
+                </li>
+            </ol>
+        </section>
+
+        <!-- СЕКЦИЯ ДЛЯ ЗАГРУЗКИ ФОТО -->
+        <section class="upload-section">
+            <h3>Демо-загрузка фото (работает локально):</h3>
+            <input type="file" id="photoUpload" accept="image/*" style="margin: 15px 0;">
+            <br>
+            <button onclick="uploadPhoto()" class="upload-button">Загрузить фото</button>
+            <p style="margin-top: 10px; font-size: 14px; color: #666;">После загрузки фото появится в двух местах на сайте</p>
         </section>
         
         <section class="about" id="about">
             <div class="about-image">
-                <!-- Замените на реальное изображение -->
-                <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                <!-- МЕСТО ДЛЯ ВТОРОГО ФОТО -->
+                <div id="secondaryPhoto" style="width: 100%; height: 400px; background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
                     Фото Олеси за работой
                 </div>
             </div>
@@ -601,8 +683,8 @@
                 <div class="contact-item">
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <h3>Email</h3>
-                    <p>putrenigh@mail.ru</p>
-                    <a href="mailto:putrenigh@mail.ru" class="email-button">Написать</a>
+                    <p>putrenish@mail.ru</p>
+                    <a href="mailto:putrenish@mail.ru" class="email-button">Написать</a>
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon"><i class="fas fa-phone"></i></div>
@@ -625,6 +707,47 @@
     </div>
 
     <script>
+        // Функция для загрузки фото через браузер
+        function uploadPhoto() {
+            const fileInput = document.getElementById('photoUpload');
+            const file = fileInput.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Заменяем главное фото
+                    const mainPhoto = document.getElementById('mainPhoto');
+                    mainPhoto.innerHTML = '';
+                    mainPhoto.style.background = 'none';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'profile-img';
+                    img.style.objectFit = 'cover';
+                    mainPhoto.appendChild(img);
+                    
+                    // Заменяем второе фото
+                    const secondaryPhoto = document.getElementById('secondaryPhoto');
+                    secondaryPhoto.innerHTML = '';
+                    secondaryPhoto.style.background = 'none';
+                    const img2 = document.createElement('img');
+                    img2.src = e.target.result;
+                    img2.style.width = '100%';
+                    img2.style.height = '100%';
+                    img2.style.borderRadius = '20px';
+                    img2.style.objectFit = 'cover';
+                    secondaryPhoto.appendChild(img2);
+
+                    // Показываем сообщение об успехе
+                    alert('Фото успешно загружено!');
+                };
+                
+                reader.readAsDataURL(file);
+            } else {
+                alert('Пожалуйста, выберите файл для загрузки');
+            }
+        }
+
         // Плавная прокрутка к якорям
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -674,4 +797,4 @@
         });
     </script>
 </body>
-</html>
+</html>     
