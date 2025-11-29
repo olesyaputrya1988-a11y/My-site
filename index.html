@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English with Olesya Putrya - Репетитор английского языка</title>
+    <title>PPEnglish with Olesya Putrya - Репетитор английского языка</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Базовые стили */
@@ -11,11 +11,20 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #e91e63; /* Малиновый */
+            --secondary: #00bcd4; /* Бирюзовый */
+            --accent: #ffd700; /* Золотистый */
+            --dark: #2c3e50; /* Темно-серый */
+            --light: #ecf0f1; /* Светло-серый */
+            --text-color: #006064; /* Темно-бирюзовый для текста */
         }
         
         body {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            background: linear-gradient(135deg, var(--secondary) 0%, #26c6da 100%);
             color: #333;
             min-height: 100vh;
             overflow-x: hidden;
@@ -27,13 +36,31 @@
             padding: 20px;
         }
         
-        /* Шапка сайта */
+        /* Шапка сайта - ФИКСИРОВАННАЯ */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
             animation: fadeIn 1s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 188, 212, 0.95);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
@@ -41,39 +68,58 @@
             font-weight: 700;
             display: flex;
             align-items: center;
-            color: #fff;
+            color: var(--text-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .logo span {
-            color: #1abc9c;
-            text-shadow: 0 0 10px rgba(26, 188, 156, 0.7);
+            color: var(--text-color);
+            text-shadow: 0 0 10px rgba(0, 96, 100, 0.3);
         }
         
         .logo-icon {
             margin-right: 10px;
             font-size: 32px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* ЗАМЕНИТЕ background-image НА ВАШ ЛОГОТИП */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23006064"><path d="M12 2L1 21h22L12 2zm0 3.84L19.53 19H4.47L12 5.84z"/><path d="M11 7v6h2V7h-2zm0 8v2h2v-2h-2z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
         
         nav ul {
             display: flex;
             list-style: none;
+            align-items: center;
         }
         
         nav ul li {
-            margin-left: 25px;
-        }
-        
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+            margin-left: 15px;
             position: relative;
         }
         
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: block;
+        }
+        
         nav ul li a:hover {
-            color: #1abc9c;
-            text-shadow: 0 0 8px rgba(26, 188, 156, 0.7);
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
         }
         
         nav ul li a::after {
@@ -82,14 +128,57 @@
             bottom: -5px;
             left: 0;
             width: 0;
-            height: 2px;
-            background-color: #1abc9c;
+            height: 3px;
+            background-color: var(--accent);
             transition: width 0.3s;
-            box-shadow: 0 0 8px rgba(26, 188, 156, 0.7);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+            border-radius: 2px;
         }
         
         nav ul li a:hover::after {
             width: 100%;
+        }
+        
+        /* Выпадающее меню */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.95);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            z-index: 1;
+            overflow: hidden;
+            animation: dropdownAppear 0.3s ease;
+        }
+        
+        .dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .dropdown-content a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         
         /* Главный баннер */
@@ -99,10 +188,11 @@
             justify-content: space-between;
             padding: 60px 0;
             animation: slideUp 1s ease;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            margin: 20px 0;
+            margin: 100px 0 20px 0;
             padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .hero-content {
@@ -114,7 +204,7 @@
             font-size: 48px;
             margin-bottom: 20px;
             line-height: 1.2;
-            color: #2c3e50;
+            color: var(--dark);
         }
         
         .hero p {
@@ -125,14 +215,14 @@
         }
         
         .highlight {
-            color: #1abc9c;
+            color: var(--primary);
             font-weight: 600;
-            text-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+            text-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
         }
         
         .cta-button {
             display: inline-block;
-            background-color: #1abc9c;
+            background-color: var(--primary);
             color: white;
             padding: 14px 32px;
             border-radius: 50px;
@@ -140,7 +230,7 @@
             font-weight: 600;
             font-size: 18px;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.5);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.5);
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -164,8 +254,8 @@
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(26, 188, 156, 0.7), 0 0 20px rgba(26, 188, 156, 0.4);
-            background-color: #16a085;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.7), 0 0 20px rgba(233, 30, 99, 0.4);
+            background-color: #c2185b;
         }
         
         .cta-button:active {
@@ -183,18 +273,19 @@
             height: 300px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid #1abc9c;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(26, 188, 156, 0.3);
+            border: 5px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 20px rgba(233, 30, 99, 0.3);
             animation: float 4s ease-in-out infinite;
         }
         
         /* Секция преимуществ */
         .features {
             padding: 80px 0;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             margin: 40px 0;
             animation: fadeIn 1.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .section-title {
@@ -202,7 +293,7 @@
             font-size: 36px;
             margin-bottom: 50px;
             position: relative;
-            color: #2c3e50;
+            color: var(--dark);
         }
         
         .section-title::after {
@@ -213,9 +304,9 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background-color: #1abc9c;
+            background-color: var(--primary);
             border-radius: 2px;
-            box-shadow: 0 0 8px rgba(26, 188, 156, 0.5);
+            box-shadow: 0 0 8px rgba(233, 30, 99, 0.5);
         }
         
         .features-grid {
@@ -231,25 +322,31 @@
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #1abc9c;
+            border-top: 4px solid var(--primary);
         }
         
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(26, 188, 156, 0.2);
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(233, 30, 99, 0.2);
         }
         
         .feature-icon {
-            font-size: 50px;
+            font-size: 60px;
             margin-bottom: 20px;
-            color: #1abc9c;
-            text-shadow: 0 0 10px rgba(26, 188, 156, 0.3);
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+            display: inline-block;
+            transition: transform 0.5s;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(10deg);
         }
         
         .feature-card h3 {
             font-size: 22px;
             margin-bottom: 15px;
-            color: #2c3e50;
+            color: var(--dark);
         }
         
         .feature-card p {
@@ -264,10 +361,11 @@
             align-items: center;
             padding: 80px 0;
             animation: fadeIn 1.5s ease;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             margin: 20px 0;
             padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .about-image {
@@ -278,7 +376,7 @@
         .about-image img {
             max-width: 80%;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(26, 188, 156, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(233, 30, 99, 0.2);
         }
         
         .about-content {
@@ -289,7 +387,7 @@
         .about-content h2 {
             font-size: 36px;
             margin-bottom: 20px;
-            color: #2c3e50;
+            color: var(--dark);
         }
         
         .about-content p {
@@ -301,23 +399,24 @@
         
         .experience-badge {
             display: inline-block;
-            background: #1abc9c;
+            background: var(--primary);
             color: white;
             padding: 10px 20px;
             border-radius: 50px;
             font-weight: 600;
             margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4), 0 0 10px rgba(26, 188, 156, 0.3);
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3);
             animation: pulse 2s infinite;
         }
         
         /* Секция методики */
         .methodology {
             padding: 80px 0;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             margin: 20px 0;
             animation: fadeIn 1.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .methodology-grid {
@@ -337,15 +436,494 @@
         }
         
         .method-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 10px rgba(26, 188, 156, 0.2);
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 10px rgba(233, 30, 99, 0.2);
         }
         
         .method-icon {
-            font-size: 40px;
+            font-size: 50px;
             margin-bottom: 15px;
-            color: #1abc9c;
-            text-shadow: 0 0 8px rgba(26, 188, 156, 0.3);
+            color: var(--primary);
+            text-shadow: 0 0 8px rgba(233, 30, 99, 0.3);
+            display: inline-block;
+            transition: transform 0.5s;
+        }
+        
+        .method-card:hover .method-icon {
+            transform: scale(1.3) rotate(-10deg);
+        }
+        
+        /* Секция магазина */
+        .shop {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin: 20px 0;
+            animation: fadeIn 1.5s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(233, 30, 99, 0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .product-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .buy-button {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
+        }
+        
+        .buy-button:hover::before {
+            left: 100%;
+        }
+        
+        .buy-button:hover {
+            background: #c2185b;
+            box-shadow: 0 6px 15px rgba(233, 30, 99, 0.6), 0 0 15px rgba(233, 30, 99, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* Кнопка "Заказать материал" */
+        .order-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, #c2185b 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .order-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
+        }
+        
+        .order-button:hover::before {
+            left: 100%;
+        }
+        
+        .order-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.7), 0 0 20px rgba(233, 30, 99, 0.4);
+        }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: modalAppear 0.3s ease;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            color: var(--dark);
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary);
+        }
+        
+        .modal-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 768px) {
+            .modal-body {
+                flex-direction: row;
+            }
+        }
+        
+        .modal-images {
+            flex: 1;
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .modal-images {
+                margin-right: 30px;
+                margin-bottom: 0;
+            }
+        }
+        
+        .carousel {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+        }
+        
+        .carousel-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--dark);
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .carousel-control:hover {
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .carousel-control.prev {
+            left: 10px;
+        }
+        
+        .carousel-control.next {
+            right: 10px;
+        }
+        
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .carousel-indicator.active {
+            background: var(--primary);
+        }
+        
+        .modal-details {
+            flex: 1;
+        }
+        
+        .modal-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .modal-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .modal-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #34495e;
+            margin-bottom: 25px;
+        }
+        
+        .modal-buy-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.5);
+        }
+        
+        .modal-buy-button:hover {
+            background: #c2185b;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.7), 0 0 20px rgba(233, 30, 99, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* Кнопка-подарок в правом нижнем углу */
+        .gift-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.6);
+            transition: all 0.3s ease;
+            animation: bounce 2s infinite;
+            overflow: hidden;
+        }
+        
+        .gift-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
+        }
+        
+        .gift-button:hover::before {
+            left: 100%;
+        }
+        
+        .gift-button:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.8), 0 0 25px rgba(255, 107, 107, 0.5);
+        }
+        
+        .gift-icon {
+            font-size: 40px;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .gift-ribbon {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 25px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            z-index: 1;
+        }
+        
+        .gift-sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle 2s infinite;
+        }
+        
+        .gift-sparkle:nth-child(1) {
+            top: 15px;
+            left: 15px;
+            animation-delay: 0s;
+        }
+        
+        .gift-sparkle:nth-child(2) {
+            top: 15px;
+            right: 15px;
+            animation-delay: 0.5s;
+        }
+        
+        .gift-sparkle:nth-child(3) {
+            bottom: 15px;
+            left: 15px;
+            animation-delay: 1s;
+        }
+        
+        .gift-sparkle:nth-child(4) {
+            bottom: 15px;
+            right: 15px;
+            animation-delay: 1.5s;
+        }
+        
+        /* Модальное окно для подарка */
+        .gift-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .gift-modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: modalAppear 0.3s ease;
+        }
+        
+        .gift-modal-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .gift-modal-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #34495e;
+        }
+        
+        .gift-modal-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
+        }
+        
+        .gift-modal-button:hover {
+            background: #c2185b;
+            box-shadow: 0 6px 15px rgba(233, 30, 99, 0.6), 0 0 15px rgba(233, 30, 99, 0.4);
+            transform: translateY(-2px);
         }
         
         /* Секция контактов */
@@ -353,9 +931,10 @@
             padding: 80px 0;
             text-align: center;
             animation: fadeIn 1.5s ease;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .contact-info {
@@ -376,19 +955,25 @@
         }
         
         .contact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 10px rgba(26, 188, 156, 0.2);
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 10px rgba(233, 30, 99, 0.2);
         }
         
         .contact-icon {
-            font-size: 30px;
+            font-size: 40px;
             margin-bottom: 15px;
-            color: #1abc9c;
-            text-shadow: 0 0 8px rgba(26, 188, 156, 0.3);
+            color: var(--primary);
+            text-shadow: 0 0 8px rgba(233, 30, 99, 0.3);
+            display: inline-block;
+            transition: transform 0.5s;
+        }
+        
+        .contact-item:hover .contact-icon {
+            transform: scale(1.2) rotate(-5deg);
         }
         
         .contact-item h3 {
-            color: #2c3e50;
+            color: var(--dark);
             margin-bottom: 10px;
         }
         
@@ -398,7 +983,7 @@
         
         .email-button {
             display: inline-block;
-            background-color: #1abc9c;
+            background-color: var(--primary);
             color: white;
             padding: 10px 20px;
             border-radius: 50px;
@@ -406,13 +991,13 @@
             font-weight: 600;
             margin-top: 10px;
             transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4);
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
         }
         
         .email-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(26, 188, 156, 0.6), 0 0 15px rgba(26, 188, 156, 0.4);
-            background-color: #16a085;
+            box-shadow: 0 6px 15px rgba(233, 30, 99, 0.6), 0 0 15px rgba(233, 30, 99, 0.4);
+            background-color: #c2185b;
         }
         
         /* Футер */
@@ -421,7 +1006,8 @@
             padding: 30px 0;
             margin-top: 40px;
             font-size: 14px;
-            color: white;
+            color: var(--text-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         
         /* Анимации */
@@ -448,30 +1034,70 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4), 0 0 10px rgba(26, 188, 156, 0.3); }
-            50% { box-shadow: 0 4px 15px rgba(26, 188, 156, 0.6), 0 0 15px rgba(26, 188, 156, 0.5); }
-            100% { box-shadow: 0 4px 10px rgba(26, 188, 156, 0.4), 0 0 10px rgba(26, 188, 156, 0.3); }
+            0% { box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3); }
+            50% { box-shadow: 0 4px 15px rgba(233, 30, 99, 0.6), 0 0 15px rgba(233, 30, 99, 0.5); }
+            100% { box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4), 0 0 10px rgba(233, 30, 99, 0.3); }
+        }
+        
+        @keyframes modalAppear {
+            from { 
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes dropdownAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
         }
         
         /* Адаптивность */
         @media (max-width: 768px) {
             header {
+                padding: 15px 0;
+            }
+            
+            .header-container {
                 flex-direction: column;
                 text-align: center;
             }
             
             nav ul {
-                margin-top: 20px;
+                margin-top: 15px;
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
             nav ul li {
-                margin: 0 10px;
+                margin: 5px;
             }
             
             .hero {
                 flex-direction: column;
                 text-align: center;
+                margin-top: 140px;
             }
             
             .hero-content {
@@ -495,26 +1121,51 @@
             .section-title {
                 font-size: 30px;
             }
+            
+            .gift-button {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .gift-icon {
+                font-size: 25px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <!-- ФИКСИРОВАННОЕ МЕНЮ -->
+    <header>
+        <div class="header-container">
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-globe-americas"></i></div>
-                English with <span>Olesya Putrya</span>
+                <div class="logo-icon"></div>
+                <span>PP</span>English with Olesya Putrya
             </div>
             <nav>
                 <ul>
                     <li><a href="#about">Обо мне</a></li>
                     <li><a href="#features">Методика</a></li>
                     <li><a href="#methodology">Преимущества</a></li>
+                    <li class="dropdown">
+                        <a href="#">Бесплатные материалы</a>
+                        <div class="dropdown-content">
+                            <a href="#">Spotlight</a>
+                            <a href="#">Worksheets</a>
+                            <a href="#">Lessons</a>
+                        </div>
+                    </li>
+                    <li><a href="#">Игры онлайн</a></li>
+                    <li><a href="#shop">Купить материалы</a></li>
+                    <li><button class="order-button">Заказать материал</button></li>
                     <li><a href="#contact">Контакты</a></li>
                 </ul>
             </nav>
-        </header>
-        
+        </div>
+    </header>
+    
+    <div class="container">
         <section class="hero">
             <div class="hero-content">
                 <h1>Английский язык с удовольствием и результатом!</h1>
@@ -523,15 +1174,15 @@
                 <a href="#contact" class="cta-button">Записаться на пробный урок</a>
             </div>
             <div class="hero-image">
-                <!-- МЕСТО ДЛЯ ВАШЕГО ФОТО -->
-                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Олеся Путря" class="profile-img">
+                <!-- ЗАМЕНИТЕ НА ВАШЕ ФОТО -->
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Олеся Путря" class="profile-img">
             </div>
         </section>
         
         <section class="about" id="about">
             <div class="about-image">
-                <!-- МЕСТО ДЛЯ ВТОРОГО ФОТО -->
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Олеся Путря за работой">
+                <!-- ЗАМЕНИТЕ НА ВАШЕ ФОТО -->
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Олеся Путря за работой">
             </div>
             <div class="about-content">
                 <div class="experience-badge">Опыт работы: 15 лет</div>
@@ -547,17 +1198,17 @@
             <h2 class="section-title">Моя методика</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-music"></i></div>
+                    <div class="feature-icon">🎵</div>
                     <h3>Обучающие песни</h3>
                     <p>Использую песни для запоминания грамматики, лексики и улучшения произношения. Музыка помогает сделать обучение веселым и эффективным.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-video"></i></div>
+                    <div class="feature-icon">🎬</div>
                     <h3>Видеоматериалы</h3>
                     <p>Подбираю интересные видео для развития навыков аудирования и расширения словарного запаса. От мультфильмов для младших школьников до познавательных роликов для старшеклассников.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-user-edit"></i></div>
+                    <div class="feature-icon">✏️</div>
                     <h3>Авторские материалы</h3>
                     <p>Разрабатываю индивидуальные программы и упражнения для каждого ученика с учетом его целей, интересов и темпа обучения.</p>
                 </div>
@@ -568,46 +1219,145 @@
             <h2 class="section-title">Преимущества обучения</h2>
             <div class="methodology-grid">
                 <div class="method-card">
-                    <div class="method-icon"><i class="fas fa-child"></i></div>
+                    <div class="method-icon">👧</div>
                     <h3>Индивидуальный подход</h3>
                     <p>Программа адаптируется под интересы и способности каждого ребенка</p>
                 </div>
                 <div class="method-card">
-                    <div class="method-icon"><i class="fas fa-gamepad"></i></div>
+                    <div class="method-icon">🎮</div>
                     <h3>Игровой формат</h3>
                     <p>Обучение через игры и интерактивные задания для детей</p>
                 </div>
                 <div class="method-card">
-                    <div class="method-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="method-icon">📈</div>
                     <h3>Быстрый прогресс</h3>
                     <p>Видимые результаты уже после нескольких занятий</p>
                 </div>
                 <div class="method-card">
-                    <div class="method-icon"><i class="fas fa-smile"></i></div>
+                    <div class="method-icon">😊</div>
                     <h3>Комфортная атмосфера</h3>
                     <p>Создаю дружескую обстановку, в которой не страшно делать ошибки</p>
                 </div>
             </div>
         </section>
         
+        <!-- РАЗДЕЛ МАГАЗИНА -->
+        <section class="shop" id="shop">
+            <h2 class="section-title">Авторские материалы</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 18px; color: #34495e;">Качественные разработки для эффективного изучения английского языка</p>
+            
+            <div class="products-grid">
+                <!-- КАРТОЧКА ТОВАРА 1 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Английский для начинающих" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Английский для начинающих</h3>
+                        <p class="product-description">Комплект материалов для детей 2-4 классов: карточки, игры, песни и рабочие листы.</p>
+                        <div class="product-price">1 200 ₽</div>
+                        <button class="buy-button" data-product="1">Купить</button>
+                    </div>
+                </div>
+                
+                <!-- КАРТОЧКА ТОВАРА 2 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Грамматика в играх" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Грамматика в играх</h3>
+                        <p class="product-description">Интерактивные задания и игры для освоения английской грамматики для 5-7 классов.</p>
+                        <div class="product-price">1 500 ₽</div>
+                        <button class="buy-button" data-product="2">Купить</button>
+                    </div>
+                </div>
+                
+                <!-- КАРТОЧКА ТОВАРА 3 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Разговорный английский" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Разговорный английский</h3>
+                        <p class="product-description">Диалоги, ситуации и темы для обсуждения для развития разговорных навыков 8-11 классов.</p>
+                        <div class="product-price">1 800 ₽</div>
+                        <button class="buy-button" data-product="3">Купить</button>
+                    </div>
+                </div>
+                
+                <!-- КАРТОЧКА ТОВАРА 4 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Подготовка к экзаменам" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Подготовка к экзаменам</h3>
+                        <p class="product-description">Тренировочные тесты и задания для подготовки к ОГЭ и ЕГЭ по английскому языку.</p>
+                        <div class="product-price">2 000 ₽</div>
+                        <button class="buy-button" data-product="4">Купить</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ТОВАРА -->
+        <div class="modal" id="productModal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-body">
+                    <div class="modal-images">
+                        <div class="carousel">
+                            <div class="carousel-inner" id="carouselInner">
+                                <!-- Картинки будут добавляться динамически -->
+                            </div>
+                            <button class="carousel-control prev">&#10094;</button>
+                            <button class="carousel-control next">&#10095;</button>
+                        </div>
+                        <div class="carousel-indicators" id="carouselIndicators">
+                            <!-- Индикаторы будут добавляться динамически -->
+                        </div>
+                    </div>
+                    <div class="modal-details">
+                        <h2 class="modal-title" id="modalTitle">Название товара</h2>
+                        <div class="modal-price" id="modalPrice">0 ₽</div>
+                        <p class="modal-description" id="modalDescription">Описание товара</p>
+                        <button class="modal-buy-button" id="modalBuyButton">Купить сейчас</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- КНОПКА-ПОДАРОК -->
+        <div class="gift-button" id="giftButton">
+            <div class="gift-ribbon"></div>
+            <div class="gift-sparkle"></div>
+            <div class="gift-sparkle"></div>
+            <div class="gift-sparkle"></div>
+            <div class="gift-sparkle"></div>
+            <div class="gift-icon">🎁</div>
+        </div>
+        
+        <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПОДАРКА -->
+        <div class="gift-modal" id="giftModal">
+            <div class="gift-modal-content">
+                <h2 class="gift-modal-title">Специальное предложение!</h2>
+                <p class="gift-modal-text">При покупке любого материала получите бесплатный доступ к онлайн-курсу "Английские идиомы для начинающих"!</p>
+                <p class="gift-modal-text">Акция действует до конца месяца. Успейте воспользоваться предложением!</p>
+                <button class="gift-modal-button" id="closeGiftModal">Получить подарок</button>
+            </div>
+        </div>
+        
         <section class="contact" id="contact">
             <h2 class="section-title">Свяжитесь со мной</h2>
             <p>Готова ответить на все ваши вопросы и обсудить детали сотрудничества</p>
             <div class="contact-info">
                 <div class="contact-item">
-                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-icon">📧</div>
                     <h3>Email</h3>
                     <p>putrenish@mail.ru</p>
                     <a href="mailto:putrenish@mail.ru" class="email-button">Написать</a>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <div class="contact-icon">📞</div>
                     <h3>Телефон</h3>
                     <p>+7 (XXX) XXX-XX-XX</p>
                     <a href="tel:+7XXXXXXXXXX" class="email-button">Позвонить</a>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div class="contact-icon">💬</div>
                     <h3>WhatsApp</h3>
                     <p>Написать в WhatsApp</p>
                     <a href="https://wa.me/7XXXXXXXXXX" class="email-button">Написать</a>
@@ -616,11 +1366,176 @@
         </section>
         
         <footer>
-            <p>© 2023 English with Olesya Putrya. Все права защищены.</p>
+            <p>© 2023 PPEnglish with Olesya Putrya. Все права защищены.</p>
         </footer>
     </div>
 
     <script>
+        // Данные о товарах
+        const products = {
+            1: {
+                title: "Английский для начинающих",
+                price: "1 200 ₽",
+                description: "Комплект материалов для детей 2-4 классов включает в себя: цветные карточки с лексикой, интерактивные игры для запоминания слов, песни с субтитрами и рабочие листы для закрепления материала. Идеально подходит для первых шагов в изучении английского языка.",
+                images: [
+                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                ],
+                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
+            },
+            2: {
+                title: "Грамматика в играх",
+                price: "1 500 ₽",
+                description: "Интерактивные задания и игры для освоения английской грамматики для 5-7 классов. Включает упражнения на времена, артикли, предлоги и построение предложений. Материалы разработаны с учетом возрастных особенностей учащихся.",
+                images: [
+                    "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                ],
+                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
+            },
+            3: {
+                title: "Разговорный английский",
+                price: "1 800 ₽",
+                description: "Диалоги, ситуации и темы для обсуждения для развития разговорных навыков 8-11 классов. Включает аудиоматериалы с носителями языка, ролевые игры и задания для парной работы. Помогает преодолеть языковой барьер.",
+                images: [
+                    "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                ],
+                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
+            },
+            4: {
+                title: "Подготовка к экзаменам",
+                price: "2 000 ₽",
+                description: "Тренировочные тесты и задания для подготовки к ОГЭ и ЕГЭ по английскому языку. Включает подробные объяснения, стратегии выполнения заданий и практические советы. Материалы регулярно обновляются в соответствии с изменениями в экзаменационных требованиях.",
+                images: [
+                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                ],
+                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
+            }
+        };
+
+        // Переменные для карусели
+        let currentSlide = 0;
+        let currentProductId = null;
+
+        // Открытие модального окна товара
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product');
+                openProductModal(productId);
+            });
+        });
+
+        // Закрытие модального окна товара
+        document.querySelector('.close-modal').addEventListener('click', closeProductModal);
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProductModal();
+        });
+
+        // Открытие модального окна подарка
+        document.getElementById('giftButton').addEventListener('click', function() {
+            document.getElementById('giftModal').style.display = 'flex';
+        });
+
+        // Закрытие модального окна подарка
+        document.getElementById('closeGiftModal').addEventListener('click', function() {
+            document.getElementById('giftModal').style.display = 'none';
+        });
+
+        document.getElementById('giftModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                document.getElementById('giftModal').style.display = 'none';
+            }
+        });
+
+        // Функция открытия модального окна товара
+        function openProductModal(productId) {
+            const product = products[productId];
+            if (!product) return;
+            
+            currentProductId = productId;
+            currentSlide = 0;
+            
+            // Заполняем данные о товаре
+            document.getElementById('modalTitle').textContent = product.title;
+            document.getElementById('modalPrice').textContent = product.price;
+            document.getElementById('modalDescription').textContent = product.description;
+            document.getElementById('modalBuyButton').setAttribute('onclick', `window.open('${product.buyLink}', '_blank')`);
+            
+            // Создаем карусель изображений
+            const carouselInner = document.getElementById('carouselInner');
+            const carouselIndicators = document.getElementById('carouselIndicators');
+            
+            carouselInner.innerHTML = '';
+            carouselIndicators.innerHTML = '';
+            
+            product.images.forEach((image, index) => {
+                // Добавляем изображения в карусель
+                const carouselItem = document.createElement('div');
+                carouselItem.className = 'carousel-item';
+                carouselItem.innerHTML = `<img src="${image}" alt="${product.title}" class="carousel-image">`;
+                carouselInner.appendChild(carouselItem);
+                
+                // Добавляем индикаторы
+                const indicator = document.createElement('div');
+                indicator.className = `carousel-indicator ${index === 0 ? 'active' : ''}`;
+                indicator.setAttribute('data-index', index);
+                indicator.addEventListener('click', () => goToSlide(index));
+                carouselIndicators.appendChild(indicator);
+            });
+            
+            // Показываем модальное окно
+            document.getElementById('productModal').style.display = 'flex';
+            updateCarousel();
+        }
+
+        // Функция закрытия модального окна товара
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Функции для карусели
+        function updateCarousel() {
+            const carouselInner = document.getElementById('carouselInner');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            const product = products[currentProductId];
+            if (!product) return;
+            
+            currentSlide = (currentSlide + 1) % product.images.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            const product = products[currentProductId];
+            if (!product) return;
+            
+            currentSlide = (currentSlide - 1 + product.images.length) % product.images.length;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Назначаем обработчики для кнопок карусели
+        document.querySelector('.carousel-control.next').addEventListener('click', nextSlide);
+        document.querySelector('.carousel-control.prev').addEventListener('click', prevSlide);
+
         // Плавная прокрутка к якорям
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -632,7 +1547,7 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 50,
+                        top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
                 }
@@ -654,12 +1569,12 @@
             });
         }, observerOptions);
         
-        document.querySelectorAll('.feature-card, .about, .contact, .method-card').forEach(el => {
+        document.querySelectorAll('.feature-card, .about, .contact, .method-card, .product-card').forEach(el => {
             observer.observe(el);
         });
         
         // Анимация для кнопок при наведении
-        document.querySelectorAll('.cta-button, .email-button').forEach(button => {
+        document.querySelectorAll('.cta-button, .email-button, .buy-button, .modal-buy-button, .gift-modal-button, .order-button').forEach(button => {
             button.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-3px)';
             });
@@ -670,4 +1585,4 @@
         });
     </script>
 </body>
-</html>          
+</html>
