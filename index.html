@@ -141,7 +141,7 @@
             display: none; /* Убираем подчеркивание */
         }
         
-        /* Выпадающее меню */
+        /* ВЫПАДАЮЩЕЕ МЕНЮ - ИСПРАВЛЕННОЕ */
         .dropdown {
             position: relative;
         }
@@ -152,18 +152,19 @@
             top: 100%;
             left: 0;
             background: rgba(255, 255, 255, 0.98);
-            min-width: 180px;
+            min-width: 200px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             border-radius: 10px;
-            z-index: 1;
+            z-index: 1001;
             overflow: hidden;
             animation: dropdownAppear 0.3s ease;
             margin-top: 5px;
+            border: 2px solid var(--primary);
         }
         
         .dropdown-content a {
             color: var(--dark);
-            padding: 10px 14px;
+            padding: 12px 16px;
             text-decoration: none;
             display: block;
             transition: all 0.3s;
@@ -171,25 +172,41 @@
             background: white;
             border-radius: 0;
             font-size: 14px;
+            font-weight: 600;
         }
         
         .dropdown-content a:hover {
             background: var(--menu-pink);
             color: white;
             transform: translateX(5px);
+            padding-left: 20px;
         }
         
         .dropdown-content a:last-child {
             border-bottom: none;
         }
         
+        /* ФИКСАЦИЯ ВЫПАДАЮЩЕГО МЕНЮ ПРИ НАВЕДЕНИИ */
         .dropdown:hover .dropdown-content {
             display: block;
         }
         
-        /* Убираем треугольник у выпадающего меню */
+        /* Создаем промежуток между кнопкой и меню для плавного перехода */
+        .dropdown::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: transparent;
+        }
+        
+        /* Улучшенное поведение выпадающего меню */
         .dropdown > a::after {
-            display: none;
+            content: ' ▼';
+            font-size: 12px;
+            margin-left: 5px;
         }
         
         /* Кнопка "Заказать материал" */
@@ -240,7 +257,7 @@
             animation: slideUp 1s ease;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            margin: 150px 0 20px 0; /* Увеличил отступ сверху */
+            margin: 150px 0 20px 0;
             padding: 40px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
@@ -1130,6 +1147,12 @@
             .contact-info {
                 grid-template-columns: 1fr;
             }
+            
+            .dropdown-content {
+                min-width: 160px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
@@ -1155,6 +1178,7 @@
                                 <a href="#">Spotlight</a>
                                 <a href="#">Worksheets</a>
                                 <a href="#">Lessons</a>
+                                <a href="#">Пробный урок</a>
                             </div>
                         </li>
                         <li><a href="#" class="nav-link">Игры онлайн</a></li>
@@ -1173,7 +1197,7 @@
                 <h1>Английский язык с удовольствием и результатом!</h1>
                 <p>Индивидуальные занятия для <span class="highlight">школьников 2-11 классов</span>. <span class="highlight">15 лет опыта</span>, авторские методики, использование песен и обучающих видео.</p>
                 <p>Развитие разговорных навыков, помощь с школьной программой, подготовка к контрольным работам.</p>
-                <a href="#contact" class="cta-button">Записаться на пробный урок</a>
+                <!-- КНОПКА УБРАНА ИЗ ГЛАВНОГО БАННЕРА -->
             </div>
             <div class="hero-image">
                 <!-- ЗАМЕНИТЕ НА ВАШЕ ФОТО -->
@@ -1358,53 +1382,48 @@
     </div>
 
     <script>
-        // Данные о товарах
-        const products = {
-            1: {
-                title: "Английский для начинающих",
-                price: "1 200 ₽",
-                description: "Комплект материалов для детей 2-4 классов включает в себя: цветные карточки с лексикой, интерактивные игры для запоминания слов, песни с субтитрами и рабочие листы для закрепления материала. Идеально подходит для первых шагов в изучении английского языка.",
-                images: [
-                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                ],
-                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
-            },
-            2: {
-                title: "Грамматика в играх",
-                price: "1 500 ₽",
-                description: "Интерактивные задания и игры для освоения английской грамматики для 5-7 классов. Включает упражнения на времена, артикли, предлоги и построение предложений. Материалы разработаны с учетом возрастных особенностей учащихся.",
-                images: [
-                    "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                ],
-                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
-            },
-            3: {
-                title: "Разговорный английский",
-                price: "1 800 ₽",
-                description: "Диалоги, ситуации и темы для обсуждения для развития разговорных навыков 8-11 классов. Включает аудиоматериалы с носителями языка, ролевые игры и задания для парной работы. Помогает преодолеть языковой барьер.",
-                images: [
-                    "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                ],
-                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
-            },
-            4: {
-                title: "Подготовка к экзаменам",
-                price: "2 000 ₽",
-                description: "Тренировочные тесты и задания для подготовки к ОГЭ и ЕГЭ по английскому языку. Включает подробные объяснения, стратегии выполнения заданий и практические советы. Материалы регулярно обновляются в соответствии с изменениями в экзаменационных требованиях.",
-                images: [
-                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                ],
-                buyLink: "#" // ЗАМЕНИТЕ НА ВАШУ ССЫЛКУ ДЛЯ ПОКУПКИ
-            }
-        };
+        // Улучшенный скрипт для выпадающего меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                
+                // Показываем меню при наведении на кнопку
+                dropdown.addEventListener('mouseenter', function() {
+                    dropdownContent.style.display = 'block';
+                    dropdownContent.style.animation = 'dropdownAppear 0.3s ease';
+                });
+                
+                // Скрываем меню при уходе с кнопки И меню
+                dropdown.addEventListener('mouseleave', function(e) {
+                    // Проверяем, что курсор ушел и с кнопки и с меню
+                    setTimeout(() => {
+                        if (!dropdown.matches(':hover') && !dropdownContent.matches(':hover')) {
+                            dropdownContent.style.display = 'none';
+                        }
+                    }, 100);
+                });
+                
+                // Дополнительная проверка для меню
+                dropdownContent.addEventListener('mouseleave', function() {
+                    setTimeout(() => {
+                        if (!dropdown.matches(':hover') && !dropdownContent.matches(':hover')) {
+                            dropdownContent.style.display = 'none';
+                        }
+                    }, 100);
+                });
+            });
+            
+            // Закрытие выпадающего меню при клике вне его
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown-content').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                }
+            });
+        });
 
         // Переменные для игры
         let gameScore = 0;
@@ -1596,7 +1615,7 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 120, // Увеличил отступ для новой шапки
+                        top: targetElement.offsetTop - 120,
                         behavior: 'smooth'
                     });
                 }
@@ -1620,17 +1639,6 @@
         
         document.querySelectorAll('.feature-card, .about, .contact, .method-card, .product-card, .contact-item').forEach(el => {
             observer.observe(el);
-        });
-        
-        // Анимация для кнопок при наведении
-        document.querySelectorAll('.cta-button, .email-button, .buy-button, .order-button').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
         });
     </script>
 </body>
